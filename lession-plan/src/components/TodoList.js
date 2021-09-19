@@ -3,7 +3,10 @@ import TodoForm from './TodoForm';
 import Todo from './Todo';
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const initColor = JSON.parse(localStorage.getItem('new_todo')) || [];
+    return initColor;
+  });
 
   const addTodo = todo => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -11,6 +14,7 @@ function TodoList() {
     }
     const newTodos = [todo, ...todos];
     setTodos(newTodos);
+    localStorage.setItem('new_todo', JSON.stringify(newTodos));
   };
 
   const updateTodo = (todoId, newValue) => {
@@ -19,12 +23,14 @@ function TodoList() {
     }
 
     setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
+    localStorage.setItem('new_todo', JSON.stringify(newValue));
   };
 
   const removeTodo = id => {
     const removedArr = [...todos].filter(todo => todo.id !== id);
 
     setTodos(removedArr);
+    localStorage.setItem('new_todo', JSON.stringify(removedArr));
   };
 
   const completeTodo = id => {
@@ -35,6 +41,7 @@ function TodoList() {
       return todo;
     });
     setTodos(updatedTodos);
+    localStorage.setItem('new_todo', JSON.stringify(updatedTodos));
   };
 
   return (
