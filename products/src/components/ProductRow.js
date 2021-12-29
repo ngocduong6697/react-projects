@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class ProductRow extends React.Component {
   constructor(props) {
@@ -9,16 +9,18 @@ class ProductRow extends React.Component {
     this.props.onDestroy(this.props.product.id);
   }
   render() {
-    var name = this.props.product.stocked ?
-      this.props.product.name :
-      <span style={{color: 'red'}}>
-        {this.props.product.name}
-      </span>;
+    var name = this.props.product.stocked ? (
+      this.props.product.name
+    ) : (
+      <span style={{ color: "red" }}>{this.props.product.name}</span>
+    );
     return (
       <tr>
         <td>{name}</td>
         <td>{this.props.product.price}</td>
-        <td><button onClick={this.destroy}>x</button></td>
+        <td>
+          <button onClick={this.destroy}>x</button>
+        </td>
       </tr>
     );
   }

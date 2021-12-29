@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class Filters extends React.Component {
   constructor(props) {
@@ -6,11 +6,11 @@ class Filters extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(e) {
-    const value = e.target[e.target.type === "checkbox" ? "checked" : "value"]
+    const value = e.target[e.target.type === "checkbox" ? "checked" : "value"];
     const name = e.target.name;
 
     this.props.onFilter({
-      [name]: value
+      [name]: value,
     });
   }
   render() {
@@ -30,8 +30,7 @@ class Filters extends React.Component {
             name="inStockOnly"
             onChange={this.handleChange}
           />
-          &nbsp;
-          Only show products in stock
+          &nbsp; Only show products in stock
         </p>
       </form>
     );

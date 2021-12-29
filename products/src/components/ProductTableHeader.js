@@ -1,9 +1,9 @@
-import React from 'react';
-import '../css/ProductTableHeader.css';
+import React from "react";
+import "../css/ProductTableHeader.css";
 
 class ProductTableHeader extends React.Component {
   render() {
-    return(
+    return (
       <th>
         {this.props.column}
         <button className="ProductTableHeader-current">&#x25B2;</button>

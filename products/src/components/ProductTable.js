@@ -1,6 +1,6 @@
-import React from 'react';
-import ProductRow from './ProductRow.js';
-import SortableColumnHeader from './SortableColumnHeader.js';
+import React from "react";
+import ProductRow from "./ProductRow.js";
+import SortableColumnHeader from "./SortableColumnHeader.js";
 
 class ProductTable extends React.Component {
   constructor(props) {
@@ -10,16 +10,21 @@ class ProductTable extends React.Component {
     this.handleDestroy = this.handleDestroy.bind(this);
     this.state = {
       sort: {
-        column: 'name',
-        direction: 'desc'
-      }
+        column: "name",
+        direction: "desc",
+      },
     };
   }
   sortByKeyAndOrder(objectA, objectB) {
-    let isDesc = this.state.sort.direction === 'desc' ? 1 : -1;
-    let [a, b] = [objectA[this.state.sort.column], objectB[this.state.sort.column]];
-    if (this.state.sort.column === 'price') {
-      [a, b] = [a, b].map((value) => parseFloat(value.replace(/[^\d\.]/g, ''), 10));
+    let isDesc = this.state.sort.direction === "desc" ? 1 : -1;
+    let [a, b] = [
+      objectA[this.state.sort.column],
+      objectB[this.state.sort.column],
+    ];
+    if (this.state.sort.column === "price") {
+      [a, b] = [a, b].map((value) =>
+        parseFloat(value.replace(/[^\d.]/g, ""), 10)
+      );
     }
     if (a > b) {
       return 1 * isDesc;
@@ -30,7 +35,9 @@ class ProductTable extends React.Component {
     return 0;
   }
   sortProducts() {
-    let productsAsArray = Object.keys(this.props.products).map((pid) => this.props.products[pid]);
+    let productsAsArray = Object.keys(this.props.products).map(
+      (pid) => this.props.products[pid]
+    );
     return productsAsArray.sort(this.sortByKeyAndOrder);
   }
   handleDestroy(id) {
@@ -40,17 +47,26 @@ class ProductTable extends React.Component {
     this.setState({
       sort: {
         column: column,
-        direction: direction
-      }
+        direction: direction,
+      },
     });
   }
   render() {
     var rows = [];
     this.sortProducts().forEach((product) => {
-      if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
+      if (
+        product.name.indexOf(this.props.filterText) === -1 ||
+        (!product.stocked && this.props.inStockOnly)
+      ) {
         return;
       }
-      rows.push(<ProductRow product={product} key={product.id} onDestroy={this.handleDestroy}></ProductRow>);
+      rows.push(
+        <ProductRow
+          product={product}
+          key={product.id}
+          onDestroy={this.handleDestroy}
+        ></ProductRow>
+      );
     });
 
     return (
